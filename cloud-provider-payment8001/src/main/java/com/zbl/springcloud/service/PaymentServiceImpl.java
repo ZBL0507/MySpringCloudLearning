@@ -2,7 +2,7 @@ package com.zbl.springcloud.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zbl.springcloud.dao.PaymentMapper;
-import com.zbl.springcloud.entities.Payment;
+import com.zbl.springcloud.dto.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

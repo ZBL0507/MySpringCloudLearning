@@ -1,7 +1,7 @@
 package com.zbl.springcloud.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zbl.springcloud.entities.Payment;
+import com.zbl.springcloud.dto.Payment;
 import org.springframework.stereotype.Repository;
 
 /**

@@ -1,4 +1,4 @@
-package com.zbl.springcloud.entities;
+package com.zbl.springcloud.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

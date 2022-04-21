@@ -1,5 +1,8 @@
-package com.zbl.springcloud.entities;
+package com.zbl.springcloud.dto;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -10,11 +13,13 @@ import java.io.Serializable;
  * @since 2022/4/21 14:19
  */
 @Data
+@TableName("payment")
 public class Payment implements Serializable {
 
     /**
      * 主键id
      */
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**

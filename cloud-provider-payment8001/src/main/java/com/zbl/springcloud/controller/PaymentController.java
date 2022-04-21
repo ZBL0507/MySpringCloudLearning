@@ -1,7 +1,7 @@
 package com.zbl.springcloud.controller;
 
-import com.zbl.springcloud.entities.CommonResult;
-import com.zbl.springcloud.entities.Payment;
+import com.zbl.springcloud.dto.CommonResult;
+import com.zbl.springcloud.dto.Payment;
 import com.zbl.springcloud.service.PaymentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
