@@ -11,10 +11,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @EnableDiscoveryClient
 @SpringBootApplication
-public class OrderMain {
+public class OrderMainConsul {
     public static void main(String[] args) {
 
-        SpringApplication.run(OrderMain.class, args);
+        SpringApplication.run(OrderMainConsul.class, args);
 
     }
 }

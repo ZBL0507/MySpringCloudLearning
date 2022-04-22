@@ -15,3 +15,6 @@
 
 ## 负载均衡
 + ribbon
+
+## declarative web service client
++ open-feign

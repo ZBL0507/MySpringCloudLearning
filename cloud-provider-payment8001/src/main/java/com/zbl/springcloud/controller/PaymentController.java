@@ -3,9 +3,12 @@ package com.zbl.springcloud.controller;
 import com.zbl.springcloud.dto.CommonResult;
 import com.zbl.springcloud.dto.Payment;
 import com.zbl.springcloud.service.PaymentServiceImpl;
+import com.zbl.springcloud.util.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author zbl
@@ -32,6 +35,12 @@ public class PaymentController {
 
     @GetMapping("/serial")
     public CommonResult<Payment> getSerial(String serial) {
+        try {
+            TimeUnit.SECONDS.sleep(RandomUtils.randomInt(1, 5));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         Payment payment = paymentService.getSerial(serial);
         payment.setSerial(payment.getSerial() + " port: " + port);
         return CommonResult.success(payment);
