@@ -26,3 +26,7 @@ feign:
         connectTimeout: 1000
         # 请求的超时时间
         readTimeout: 1000
+
+logging:
+  level:
+    com.zbl.springcloud.service.PaymentFeignClient: debug
