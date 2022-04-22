@@ -27,4 +27,8 @@ public class CommonResult<T> {
     public static<T> CommonResult<T> success(T data) {
         return  new CommonResult<>(200, "成功", data);
     }
+
+    public static<T> CommonResult<T> fail(T data) {
+        return  new CommonResult<>(400, "失败", data);
+    }
 }

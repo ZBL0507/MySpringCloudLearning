@@ -1,7 +1,9 @@
 package com.zbl.springcloud.controller;
 
+import cn.hutool.core.collection.CollUtil;
 import com.zbl.springcloud.dto.CommonResult;
 import com.zbl.springcloud.dto.Payment;
+import com.zbl.springcloud.lb.LoadBalancer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -22,8 +24,13 @@ public class OrderController {
 //    private final static String PaymentUrl = "http://localhost:8001";
     private final static String PaymentUrl = "http://CLOUD-PAYMENT-SERVICE";
 
+    @SuppressWarnings("all")
     @Autowired
     private DiscoveryClient discoveryClient;
+
+    @SuppressWarnings("all")
+    @Autowired
+    private LoadBalancer loadBalancer;
 
     @SuppressWarnings("all")
     @Autowired
@@ -39,6 +46,17 @@ public class OrderController {
     @GetMapping("/order/serial/{serial}")
     public CommonResult<Payment> getPayment(@PathVariable("serial") String serial) {
         return restTemplate.getForObject(PaymentUrl + "/api/payment/serial?serial=" + serial, CommonResult.class);
+    }
+
+    @GetMapping("/lb")
+    public CommonResult<String> lb() {
+        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
+        if (CollUtil.isEmpty(instances)) {
+            return CommonResult.fail("没有可用的服务");
+        }
+
+        ServiceInstance serviceInstance = loadBalancer.instance(instances);
+        return CommonResult.success("端口号：" + serviceInstance.getPort());
     }
 
     @GetMapping("/discovery")
