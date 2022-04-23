@@ -45,4 +45,9 @@ public class PaymentController {
         payment.setSerial(payment.getSerial() + " port: " + port);
         return CommonResult.success(payment);
     }
+
+    @GetMapping("/get/{id}")
+    public String getStr(@PathVariable("id") Integer id) {
+        return "id = " + id + ", port" + port;
+    }
 }
