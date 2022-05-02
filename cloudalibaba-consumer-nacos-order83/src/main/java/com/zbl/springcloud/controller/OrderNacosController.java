@@ -1,6 +1,7 @@
 package com.zbl.springcloud.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.zbl.springcloud.util.RandomUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,7 +33,9 @@ public class OrderNacosController {
     }
 
     @GetMapping("/consumer/fallback")
-    @SentinelResource(value = "fallback", fallback = "handleFallback")
+    @SentinelResource(value = "fallback",
+            fallback = "handleFallback",
+            blockHandler = "handleBlockHandler")
     public String paymentInfo() {
         int rand = RandomUtils.randomInt(0, 10);
         if (rand > 6) {
@@ -43,5 +46,9 @@ public class OrderNacosController {
 
     public String handleFallback(Throwable e) {
         return "------出现业务异常-----";
+    }
+
+    public String handleBlockHandler(BlockException e) {
+        return "---handleBlockHandler----";
     }
 }
