@@ -35,7 +35,8 @@ public class OrderNacosController {
     @GetMapping("/consumer/fallback")
     @SentinelResource(value = "fallback",
             fallback = "handleFallback",
-            blockHandler = "handleBlockHandler")
+            blockHandler = "handleBlockHandler",
+            exceptionsToIgnore = {IllegalArgumentException.class})
     public String paymentInfo() {
         int rand = RandomUtils.randomInt(0, 10);
         if (rand > 6) {
