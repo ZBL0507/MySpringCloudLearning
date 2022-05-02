@@ -3,6 +3,7 @@ package com.zbl.springcloud.controller;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.zbl.springcloud.dto.CommonResult;
+import com.zbl.springcloud.handler.MyCustomerBlockHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,5 +29,13 @@ public class RateLimitController {
     @SentinelResource(value = "byUrl")
     public CommonResult<String> byUrl() {
         return CommonResult.success("byUrl,成功");
+    }
+
+    @GetMapping("/rateLimit/customerBlockHandler")
+    @SentinelResource(value = "customerBlockHandler",
+            blockHandlerClass = MyCustomerBlockHandler.class,
+            blockHandler = "handleException")
+    public CommonResult<String> customerBlockHandler() {
+        return CommonResult.success("--自定义限流控制--");
     }
 }
