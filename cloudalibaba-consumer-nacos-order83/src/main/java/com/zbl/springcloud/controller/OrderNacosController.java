@@ -1,5 +1,7 @@
 package com.zbl.springcloud.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.zbl.springcloud.util.RandomUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,5 +29,19 @@ public class OrderNacosController {
     @GetMapping("/consumer/payment/nacos/{id}")
     public String paymentInfo(@PathVariable("id") Long id) {
         return restTemplate.getForObject(serviceUrl + "/payment/nacos/" + id, String.class);
+    }
+
+    @GetMapping("/consumer/fallback")
+    @SentinelResource(value = "fallback", fallback = "handleFallback")
+    public String paymentInfo() {
+        int rand = RandomUtils.randomInt(0, 10);
+        if (rand > 6) {
+            throw new IllegalArgumentException();
+        }
+        return restTemplate.getForObject(serviceUrl + "/payment/nacos/" + 2322, String.class);
+    }
+
+    public String handleFallback(Throwable e) {
+        return "------出现业务异常-----";
     }
 }
